@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ردود جاهزة للمستفيدين</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        h1 {
+            text-align: center;
+            color: #1f3c88;
+            margin-bottom: 25px;
+            border-bottom: 2px solid #eef2f5;
+            padding-bottom: 15px;
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 12px 15px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 16px;
+            box-sizing: border-box;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .search-box:focus {
+            border-color: #1f3c88;
+        }
+
+        .faq-item {
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .faq-question {
+            background-color: #f8f9fa;
+            padding: 15px 20px;
+            font-weight: bold;
+            font-size: 16px;
+            color: #1f3c88;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .faq-answer {
+            padding: 20px;
+            background-color: #ffffff;
+            font-size: 15px;
+            line-height: 1.6;
+            color: #444;
+            white-space: pre-line;
+        }
+
+        .copy-btn {
+            background-color: #1f3c88;
+            color: #ffffff;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-top: 10px;
+            transition: background-color 0.2s;
+        }
+
+        .copy-btn:hover {
+            background-color: #070d59;
+        }
+
+        .copy-btn.copied {
+            background-color: #28a745;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>ردود جاهزة للمستفيدين</h1>
+
+    <input type="text" id="searchInput" class="search-box" onkeyup="filterFAQ()" placeholder="ابحث عن سؤال أو كلمة مفتاحية...">
+
+    <div id="faqList">
+
+        <!-- السؤال الجديد -->
+        <div class="faq-item">
+            <div class="faq-question">انتظار المستفيد في حال عدم الرد</div>
+            <div class="faq-answer">
+                <span class="answer-text">عزيزي المستفيد لا زلت في انتظار ردك ، لكي يتم خدمتك</span>
+                <br>
+                <button class="copy-btn" onclick="copyText(this)">نسخ الرد</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    function copyText(button) {
+        var answerText = button.previousElementSibling.innerText;
+        navigator.clipboard.writeText(answerText).then(function() {
+            button.innerText = 'تم النسخ!';
+            button.classList.add('copied');
+            setTimeout(function() {
+                button.innerText = 'نسخ الرد';
+                button.classList.remove('copied');
+            }, 2000);
+        });
+    }
+
+    function filterFAQ() {
+        var input = document.getElementById('searchInput');
+        var filter = input.value.toLowerCase();
+        var faqList = document.getElementById('faqList');
+        var items = faqList.getElementsByClassName('faq-item');
+
+        for (var i = 0; i < items.length; i++) {
+            var text = items[i].innerText.toLowerCase();
+            if (text.includes(filter)) {
+                items[i].style.display = "";
+            } else {
+                items[i].style.display = "none";
+            }
+        }
+    }
+</script>
+
+</body>
+</html>
